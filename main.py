@@ -23,9 +23,17 @@ rounds = {
     "一等奖": 1
 }
 
+# 声明全局变量
+countdown_button = None
+confirm_button = None
+cancel_button = None
+
 def draw_lottery():
     global participants, winners, current_round, rounds, draw_button
-    global current_round_label,winner_label,winners_label
+    global current_round_label, winner_label, winners_label
+    global countdown_button, confirm_button, cancel_button  # 声明为全局变量
+    
+    draw_button.config(state=DISABLED)  # 禁用抽奖按钮
     if not participants:
         result_label.config(text="所有参与者都已参与抽奖！")
         draw_button.config(state=DISABLED)  # 禁用抽奖按钮
@@ -45,18 +53,73 @@ def draw_lottery():
     else:
         # 随机选择一名中奖者
         winner = random.choice(participants)
-        winners[current_round].append(winner)
-        participants.remove(winner)
-        rounds[current_round] -= 1
-        # 创建一个新的标签来显示当前轮次
-        current_round_label.config(text=f"本次 {current_round}")
-        # 更新结果标签以显示中奖者信息
+        # 创建倒计时按钮
+        countdown_button = tb.Button(root, text="10秒倒计时", command=lambda: start_countdown(winner))
+        countdown_button.pack(pady=10)
+
+        # 创建确认和废除按钮
+        confirm_button = tb.Button(root, text="确认", command=lambda: confirm_winner(winner))
+        confirm_button.pack(side=tk.LEFT, padx=10)
+        cancel_button = tb.Button(root, text="废除", command=lambda: cancel_winner(winner))
+        cancel_button.pack(side=tk.LEFT, padx=10)
+
+        # 更新当前轮次标签
+        current_round_label.config(text=f"本次 {current_round} 第 {rounds[current_round]} 轮")
+        # 更新结果标签以显示正在抽奖
         result_label.config(text=f"正在进行 {current_round} 抽奖")
         # 更新中奖者标签以显示中奖者信息
         winner_label.config(text=f"中奖者: {winner}")
         # 更新已中奖者标签以显示已中奖者信息
         winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
         print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
+
+def start_countdown(winner):
+    global countdown_button, confirm_button, cancel_button  # 声明为全局变量
+
+    countdown_button.config(state=DISABLED)  # 禁用倒计时按钮
+
+    def update_countdown(seconds):
+        if seconds > 0:
+            countdown_button.config(text=f"{seconds}秒倒计时")
+            root.after(1000, update_countdown, seconds - 1)
+        else:
+            countdown_button.destroy()
+
+    update_countdown(10)
+
+def confirm_winner(winner):
+    global confirm_button, cancel_button, draw_button  # 声明为全局变量
+
+    countdown_button.destroy()
+    cancel_button.destroy()
+    confirm_button.destroy()
+    # 确认该号码中奖，将其从参与者列表中移除
+    winners[current_round].append(winner)
+    participants.remove(winner)
+    rounds[current_round] -= 1
+    # 创建一个新的标签来显示当前轮次
+    current_round_label.config(text=f"本次 {current_round} 第 {rounds[current_round]} 轮")
+    # 更新结果标签以显示中奖者信息
+    result_label.config(text=f"正在进行 {current_round} 抽奖")
+    # 更新中奖者标签以显示中奖者信息
+    winner_label.config(text=f"中奖者: {winner}")
+    # 更新已中奖者标签以显示已中奖者信息
+    winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
+    print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
+    draw_button.config(state=NORMAL)  # 启用抽奖按钮
+
+def cancel_winner(winner):
+    global confirm_button, cancel_button  # 声明为全局变量
+    countdown_button.destroy()
+    confirm_button.destroy()
+    cancel_button.destroy()
+
+    # 重新设置中奖者文本为空
+    winner_label.config(text=f"中奖者: ")
+
+    # 重新进行抽奖
+    draw_button.config(state=NORMAL)  # 启用抽奖按钮
+    print(f"废除中奖者: {winner}")  # 调试信息
 
 def save_results():
     # 获取当前时间作为文件名
@@ -131,9 +194,9 @@ winners_label = tb.Label(root, text="", font=("Helvetica", 18), bootstyle="light
 winners_label.pack(pady=20)
 
 # 创建结果显示标签
-result_label = tb.Label(root, text="", font=("Helvetica", 18), style='TLabel')
+result_label = tb.Label(root, text="", font=("Helvetica", 18),
+style='TLabel')
 result_label.pack(pady=60)
-
 
 # 版权信息标签
 copyright_label = tb.Label(root, text="月山村晚专用", font=(12), bootstyle="secondary", style='TLabel')  # 应用自定义标签样式
