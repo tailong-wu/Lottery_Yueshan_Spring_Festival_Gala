@@ -49,7 +49,9 @@ def draw_lottery():
             result_label.config(text="所有奖项抽奖结束！")
             save_results()  # 在所有奖项抽奖结束后保存结果
             draw_button.config(state=DISABLED)  # 禁用抽奖按钮
-            return
+            return 
+        draw_button.config(state=NORMAL)  # 启用抽奖按钮
+        return 
     else:
         # 随机选择一名中奖者
         winner = random.choice(participants)
