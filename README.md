@@ -3,11 +3,13 @@ Lottery code for the Spring Festival Gala in Yueshan Village
 月山村春晚专用抽奖代码
 
 
-# 环境
-python 3.10
+# 开发环境
+conda create -n yueshan python=3.10
 
-pip install ttkbootstrap tk
-pip install pyinstaller
+conda activate yueshan
+
+pip install ttkbootstrap tk pyinstaller
+
 pip install Pillow==11.1.0
 
 # 打包
