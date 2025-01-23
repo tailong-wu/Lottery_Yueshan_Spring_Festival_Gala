@@ -8,7 +8,7 @@ from datetime import datetime
 from PIL import Image, ImageTk
 
 # 初始化参与者列表
-participants = ["张三", "李四", "王五", "赵六", "孙七", "周八", "吴九", "郑十", "陈一", "刘二", "陈三", "刘四", "陈五", "刘六", "陈七", "刘八", "陈九", "刘十"]
+participants = [str(i) for i in range(1, 801)]
 # 已中奖者列表
 winners = {
     "三等奖": [],
@@ -105,7 +105,7 @@ root.bind("<Configure>", resize_image)
 # 自定义样式
 style = tb.Style()
 style.configure('TButton', font=('Helvetica', 12, 'bold'), foreground='gold')  # 设置按钮字体为金色
-style.configure('TLabel', font=('Helvetica',24,'bold'), foreground='#fcbb08', background='  ')  # 设置标签字体为白色
+style.configure('TLabel', font=('Helvetica',24,'bold'), foreground='#fcbb08', background='red')  # 设置标签字体为白色
 style.configure('TFrame', background='red')  # 设置背景颜色为红色
 
 
