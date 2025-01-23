@@ -110,7 +110,7 @@ style.configure('TFrame', background='red')  # 设置背景颜色为红色
 
 
 # 标题标签
-title_label = tb.Label(root, text="月山村春晚抽奖环节", font=( 24), bootstyle="info", style='TLabel')
+title_label = tb.Label(root, text="月山村春晚抽奖环节", font=("Helvetica", 40), bootstyle="info", style='TLabel')
 title_label.pack(pady=20)
 # 创建当前轮次标签
 current_round_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
@@ -123,21 +123,21 @@ draw_button.pack(pady=30)
 
 
 # 创建中奖者标签
-winner_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
-winner_label.pack(pady=10)
+winner_label = tb.Label(root, text="", font=("Helvetica", 18), bootstyle="light", style='TLabel')
+winner_label.pack(pady=20)
 
 # 创建已中奖者标签
-winners_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
-winners_label.pack(pady=10)
+winners_label = tb.Label(root, text="", font=("Helvetica", 18), bootstyle="light", style='TLabel')
+winners_label.pack(pady=20)
 
+# 创建结果显示标签
+result_label = tb.Label(root, text="", font=("Helvetica", 18), style='TLabel')
+result_label.pack(pady=60)
 
-# # 创建结果显示标签
-result_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
-result_label.pack(pady=30)
 
 # 版权信息标签
-copyright_label = tb.Label(root, text="月山村晚专用", font=(10), bootstyle="secondary", style='TLabel')  # 应用自定义标签样式
-copyright_label.pack(side=tk.BOTTOM, pady=10)
+copyright_label = tb.Label(root, text="月山村晚专用", font=(12), bootstyle="secondary", style='TLabel')  # 应用自定义标签样式
+copyright_label.pack(side=tk.BOTTOM, pady=20)
 
 # 运行主循环
 root.mainloop()
