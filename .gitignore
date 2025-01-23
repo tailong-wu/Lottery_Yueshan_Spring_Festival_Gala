@@ -31,6 +31,7 @@ MANIFEST
 *.spec
 dist/
 build/
+main.spec
 
 # IDE and editor files
 .idea/
