@@ -93,9 +93,9 @@ def draw_lottery():
         winner_label.config(text=f"{winner}")
         
         # 更新已中奖者标签以显示已中奖者信息
-        winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
+        winners_label.config(text=f"{current_round} 中奖名单: {', '.join(winners[current_round])}")
         
-        print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
+        print(f"当前轮次: {current_round}, 中奖者: {winner}, 中奖名单: {winners[current_round]}")  # 调试信息
         
 
 def scroll_winner(winner):
@@ -149,8 +149,8 @@ def confirm_winner(winner):
     result_label.config(text=f"正在进行 {current_round} 抽奖")
     # 更新中奖者标签以显示中奖者信息
     # 更新已中奖者标签以显示已中奖者信息
-    winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
-    print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
+    winners_label.config(text=f"{current_round} 中奖名单: {', '.join(winners[current_round])}")
+    print(f"当前轮次: {current_round}, 中奖者: {winner}, 中奖名单: {winners[current_round]}")  # 调试信息
     draw_button.config(state=NORMAL)  # 启用抽奖按钮
 
 def cancel_winner(winner):
@@ -213,22 +213,16 @@ root.bind("<Configure>", resize_image)
 # 自定义样式
 style = tb.Style()
 style.configure('TButton', font=('Helvetica', 12, 'bold'), foreground='gold')  # 设置按钮字体为金色
-style.configure('TLabel', font=('Helvetica',24,'bold'), foreground='#fcbb08', background='red')  # 设置标签字体为白色
+style.configure('TLabel', font=('Helvetica',24,'bold'), foreground='#fcbb08', background='#af0504')  # 设置标签字体为白色
 style.configure('TFrame', background='red')  # 设置背景颜色为红色
 
 
 # 标题标签
-title_label = tb.Label(root, text="月山村春晚抽奖环节", font=("Helvetica", 40), bootstyle="info", style='TLabel')
-title_label.pack(pady=20)
+title_label = tb.Label(root, text="月山村春晚抽奖环节", font=("Helvetica", 40), bootstyle="info",width=-1,style='TLabel')
+title_label.pack(pady=0)
 # 创建当前轮次标签
 current_round_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
 current_round_label.pack(pady=10)
-
-
-# 创建抽奖按钮
-draw_button = tb.Button(root, text="开始抽奖", command=draw_lottery, bootstyle="success-outline", width=20, style='TButton')  # 应用自定义按钮样式
-draw_button.pack(pady=30)
-
 
 # 创建中奖者标签
 winner_label = tb.Label(root, text="", font=("Helvetica", 80), bootstyle="light", style='TLabel')
@@ -242,6 +236,10 @@ winners_label.pack(pady=20)
 result_label = tb.Label(root, text="", font=("Helvetica", 18),
 style='TLabel')
 result_label.pack(pady=60)
+
+# 创建抽奖按钮
+draw_button = tb.Button(root, text="开始抽奖", command=draw_lottery, bootstyle="success-outline",style='TButton')  # 应用自定义按钮样式
+draw_button.pack(pady=20)
 
 # 版权信息标签
 copyright_label = tb.Label(root, text="月山村晚专用", font=(12), bootstyle="secondary", style='TLabel')  # 应用自定义标签样式
