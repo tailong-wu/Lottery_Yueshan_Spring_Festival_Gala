@@ -18,8 +18,8 @@ winners = {
 
 current_round = "三等奖"
 rounds = {
-    "三等奖": 15,
-    "二等奖": 5,
+    "三等奖": 5,
+    "二等奖": 3,
     "一等奖": 1
 }
 
@@ -29,6 +29,12 @@ rounds_memo = rounds.copy()
 countdown_button = None
 confirm_button = None
 cancel_button = None
+
+scroll_times = {
+    "三等奖": 20,
+    "二等奖": 40,
+    "一等奖": 80
+}
 
 def draw_lottery():
     global participants, winners, current_round, rounds, draw_button
@@ -64,6 +70,10 @@ def draw_lottery():
     else:
         # 随机选择一名中奖者
         winner = random.choice(participants)
+
+        # 滚动显示中奖者
+        scroll_winner(winner)
+
         # 创建倒计时按钮
         countdown_button = tb.Button(root, text="10秒倒计时", command=lambda: start_countdown(winner))
         countdown_button.pack(pady=10)
@@ -78,9 +88,27 @@ def draw_lottery():
         result_label.config(text=f"正在进行 {current_round} 抽奖")
         # 更新中奖者标签以显示中奖者信息
         winner_label.config(text=f"中奖者: {winner}")
+        
         # 更新已中奖者标签以显示已中奖者信息
         winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
+        
         print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
+        
+
+def scroll_winner(winner):
+    global current_round, winner_label
+
+    seconds = scroll_times[current_round]  # 获取当前奖项的滚动时间
+
+    def update_winner(seconds):
+        if seconds > 0:
+            winner_label.config(text=f"中奖者: {random.choice(participants)}")
+            root.after(200, update_winner, seconds - 1)
+        else:
+            winner_label.config(text=f"中奖者: {winner}")
+
+    update_winner(seconds)
+
 
 def start_countdown(winner):
     global countdown_button, confirm_button, cancel_button  # 声明为全局变量
@@ -198,7 +226,7 @@ draw_button.pack(pady=30)
 
 
 # 创建中奖者标签
-winner_label = tb.Label(root, text="", font=("Helvetica", 50), bootstyle="light", style='TLabel')
+winner_label = tb.Label(root, text="", font=("Helvetica", 80), bootstyle="light", style='TLabel')
 winner_label.pack(pady=20)
 
 # 创建已中奖者标签
