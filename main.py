@@ -143,7 +143,7 @@ def confirm_winner(winner):
         current_round_label.config(text=f"本轮抽奖结束，即将开始下一轮抽奖！")
     else:
         # 创建一个新的标签来显示当前轮次
-        winner_label.config(text=f" ")
+        winner_label.config(text=f"")
         current_round_label.config(text=f"本次 {current_round} 第 {rounds_memo[current_round]-rounds[current_round]+1} 轮")
     # 更新结果标签以显示中奖者信息
     result_label.config(text=f"正在进行 {current_round} 抽奖")
