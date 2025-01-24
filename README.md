@@ -16,4 +16,3 @@ pip install Pillow==11.1.0
 pyinstaller --onefile --windowed main.py
 
 # to do
-+ 抽奖的时候滚动显示名字最终停止在某人名字上
