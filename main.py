@@ -55,12 +55,15 @@ def draw_lottery():
         if current_round == "三等奖":
             current_round = "二等奖"
             result_label.config(text="三等奖抽奖结束，即将开始二等奖抽奖！")
+            winner_label.config(text="感谢大家参与，\n请继续观看晚会")
             current_round_label.config(text=f"本次 {current_round} 第 {rounds_memo[current_round]-rounds[current_round]+1} 轮")
         elif current_round == "二等奖":
             current_round = "一等奖"
             result_label.config(text="二等奖抽奖结束，即将开始一等奖抽奖！")
+            winner_label.config(text="感谢大家参与，\n请继续观看晚会")
             current_round_label.config(text=f"本次 {current_round} 第 {rounds_memo[current_round]-rounds[current_round]+1} 轮")
         elif current_round == "一等奖":
+            winner_label.config(text="感谢大家参与，\n请继续观看晚会")
             result_label.config(text="所有奖项抽奖结束！")
             save_results()  # 在所有奖项抽奖结束后保存结果
             draw_button.config(state=DISABLED)  # 禁用抽奖按钮
@@ -87,7 +90,7 @@ def draw_lottery():
         # 更新结果标签以显示正在抽奖
         result_label.config(text=f"正在进行 {current_round} 抽奖")
         # 更新中奖者标签以显示中奖者信息
-        winner_label.config(text=f"中奖者: {winner}")
+        winner_label.config(text=f"{winner}")
         
         # 更新已中奖者标签以显示已中奖者信息
         winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
@@ -102,10 +105,10 @@ def scroll_winner(winner):
 
     def update_winner(seconds):
         if seconds > 0:
-            winner_label.config(text=f"中奖者: {random.choice(participants)}")
+            winner_label.config(text=f"{random.choice(participants)}")
             root.after(200, update_winner, seconds - 1)
         else:
-            winner_label.config(text=f"中奖者: {winner}")
+            winner_label.config(text=f"{winner}")
 
     update_winner(seconds)
 
@@ -135,14 +138,16 @@ def confirm_winner(winner):
     participants.remove(winner)
     rounds[current_round] -= 1
     if rounds[current_round] == 0:
+        winner_label.config(text="感谢大家参与，\n请继续观看晚会")
+        result_label.config(text=f" {current_round} 抽奖结束")
         current_round_label.config(text=f"本轮抽奖结束，即将开始下一轮抽奖！")
     else:
         # 创建一个新的标签来显示当前轮次
+        winner_label.config(text=f" ")
         current_round_label.config(text=f"本次 {current_round} 第 {rounds_memo[current_round]-rounds[current_round]+1} 轮")
     # 更新结果标签以显示中奖者信息
     result_label.config(text=f"正在进行 {current_round} 抽奖")
     # 更新中奖者标签以显示中奖者信息
-    winner_label.config(text=f"中奖者: ")
     # 更新已中奖者标签以显示已中奖者信息
     winners_label.config(text=f"{current_round} 已中奖者: {', '.join(winners[current_round])}")
     print(f"当前轮次: {current_round}, 中奖者: {winner}, 已中奖者: {winners[current_round]}")  # 调试信息
@@ -155,7 +160,7 @@ def cancel_winner(winner):
     cancel_button.destroy()
 
     # 重新设置中奖者文本为空
-    winner_label.config(text=f"中奖者: ")
+    winner_label.config(text=f" ")
 
     # 重新进行抽奖
     draw_button.config(state=NORMAL)  # 启用抽奖按钮
