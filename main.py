@@ -77,9 +77,9 @@ def draw_lottery():
         # 滚动显示中奖者
         scroll_winner(winner)
 
-        # 创建倒计时按钮
-        countdown_button = tb.Button(root, text="10秒倒计时", command=lambda: start_countdown(winner))
-        countdown_button.pack(pady=10)
+        # # 创建倒计时按钮
+        # countdown_button = tb.Button(root, text="10秒倒计时", command=lambda: start_countdown(winner))
+        # countdown_button.pack(pady=10)
 
         # 创建确认和废除按钮
         confirm_button = tb.Button(root, text="确认", command=lambda: confirm_winner(winner))
@@ -113,24 +113,24 @@ def scroll_winner(winner):
     update_winner(seconds)
 
 
-def start_countdown(winner):
-    global countdown_button, confirm_button, cancel_button  # 声明为全局变量
+# def start_countdown(winner):
+#     global countdown_button, confirm_button, cancel_button  # 声明为全局变量
 
-    countdown_button.config(state=DISABLED)  # 禁用倒计时按钮
+#     countdown_button.config(state=DISABLED)  # 禁用倒计时按钮
 
-    def update_countdown(seconds):
-        if seconds > 0:
-            countdown_button.config(text=f"{seconds}秒倒计时")
-            root.after(1000, update_countdown, seconds - 1)
-        else:
-            countdown_button.destroy()
+#     def update_countdown(seconds):
+#         if seconds > 0:
+#             countdown_button.config(text=f"{seconds}秒倒计时")
+#             root.after(1000, update_countdown, seconds - 1)
+#         else:
+#             countdown_button.destroy()
 
-    update_countdown(10)
+#     update_countdown(10)
 
 def confirm_winner(winner):
     global confirm_button, cancel_button, draw_button  # 声明为全局变量
 
-    countdown_button.destroy()
+    # countdown_button.destroy()
     cancel_button.destroy()
     confirm_button.destroy()
     # 确认该号码中奖，将其从参与者列表中移除
@@ -155,7 +155,7 @@ def confirm_winner(winner):
 
 def cancel_winner(winner):
     global confirm_button, cancel_button  # 声明为全局变量
-    countdown_button.destroy()
+    # countdown_button.destroy()
     confirm_button.destroy()
     cancel_button.destroy()
 
@@ -221,7 +221,7 @@ style.configure('TFrame', background='red')  # 设置背景颜色为红色
 
 
 # 标题标签
-title_label = tb.Label(root, text="月山村春晚抽奖环节", font=("Helvetica", 40), bootstyle="info",width=-1,style='TLabel')
+title_label = tb.Label(root, text="月山村晚抽奖", font=("Helvetica", 40), bootstyle="info",width=-1,style='TLabel')
 title_label.pack(pady=0)
 # 创建当前轮次标签
 current_round_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
