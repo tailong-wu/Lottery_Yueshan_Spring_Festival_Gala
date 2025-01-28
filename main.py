@@ -200,6 +200,9 @@ root = tb.Window(themename="united")
 root.title("月山村春晚抽奖环节")
 root.geometry("1600x900")
 
+# 设置窗口为全屏
+root.attributes('-fullscreen', True)
+
 # 加载自定义背景图片
 background_image = Image.open("background_image.png")  # 替换为您的图片路径
 background_photo = ImageTk.PhotoImage(background_image)
