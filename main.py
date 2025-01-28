@@ -225,11 +225,11 @@ title_label = tb.Label(root, text="月山村春晚抽奖环节", font=("Helvetic
 title_label.pack(pady=0)
 # 创建当前轮次标签
 current_round_label = tb.Label(root, text="", font=("Helvetica", 14), bootstyle="light", style='TLabel')
-current_round_label.pack(pady=10)
+current_round_label.pack(pady=0)
 
 # 创建中奖者标签
-winner_label = tb.Label(root, text="", font=("Helvetica", 80), bootstyle="light", style='TLabel')
-winner_label.pack(pady=20)
+winner_label = tb.Label(root, text="", font=("Helvetica", 100), bootstyle="light", style='TLabel')
+winner_label.pack(pady=40)
 
 # 创建已中奖者标签
 winners_label = tb.Label(root, text="", font=("Helvetica", 18), bootstyle="light", style='TLabel')
